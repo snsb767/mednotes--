@@ -1,0 +1,7 @@
+{
+  "name": "MedNotes ",
+  "description": "AI-powered performance evaluator for medical education, analyzing clinical note accuracy, speed, and reasoning.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

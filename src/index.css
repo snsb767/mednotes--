@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Plus Jakarta Sans", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --bg: #E4E3E0;
+  --ink: #141414;
+  --line: #141414;
+}
+
+body {
+  @apply bg-[#E4E3E0] text-[#141414] font-sans antialiased;
+}
+
+.data-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.data-row:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.col-header {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 11px;
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-value {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+.card-brutalist {
+  @apply border border-[#141414] bg-white p-6 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)];
+}
+
+.btn-brutalist {
+  @apply border border-[#141414] bg-[#141414] text-[#E4E3E0] px-6 py-2 font-mono uppercase tracking-widest hover:bg-white hover:text-[#141414] transition-colors shadow-[4px_4px_0px_0px_rgba(20,20,20,0.2)];
+}
+
+
+.bg-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.markdown-body {
+  @apply text-base leading-[2] font-sans;
+}
+
+.markdown-body h1 { @apply text-2xl font-bold mb-8 mt-10 text-sky-600 dark:text-[#38bdf8]; }
+.markdown-body h2 { @apply text-xl font-bold mb-6 mt-8 text-sky-600 dark:text-[#38bdf8]; }
+.markdown-body h3 { @apply text-lg font-bold mb-4 mt-6 text-sky-600 dark:text-[#38bdf8]; }
+.markdown-body p { @apply mb-6 text-zinc-600 dark:text-[#94a3b8]; }
+.markdown-body ul { @apply list-disc pl-6 mb-6 text-zinc-600 dark:text-[#94a3b8]; }
+.markdown-body ol { @apply list-decimal pl-6 mb-6 text-zinc-600 dark:text-[#94a3b8]; }
+.markdown-body li { @apply mb-4; }
+.markdown-body pre { @apply bg-zinc-100 dark:bg-zinc-900 p-4 rounded-xl mb-4 overflow-x-auto; }
+.markdown-body code { @apply font-mono text-sm px-1.5 py-0.5 bg-zinc-100 dark:bg-zinc-900 rounded; }
+.markdown-body a { @apply text-sky-500 hover:underline; }
+.markdown-body blockquote { @apply border-l-4 border-zinc-200 dark:border-zinc-800 pl-4 italic mb-4 text-zinc-500; }
+
+/* Prism Markdown Highlighting */
+.token.title, .token.important { @apply text-sky-500 font-bold; }
+.token.bold { @apply font-bold; }
+.token.italic { @apply italic; }
+.token.list { @apply text-sky-400; }
+.token.url, .token.link { @apply text-emerald-500; }
+.token.code { @apply text-amber-500 bg-zinc-100 dark:bg-zinc-800 px-1 rounded; }
+.token.blockquote { @apply text-zinc-400 italic; }
+.token.punctuation { @apply text-zinc-400; }
+.token.comment { @apply text-zinc-500; }
+.token.string { @apply text-emerald-400; }
+.token.number { @apply text-amber-400; }
+.token.operator { @apply text-sky-400; }
+.token.keyword { @apply text-violet-400; }
+.token.function { @apply text-sky-400; }

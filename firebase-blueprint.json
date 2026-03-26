@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A healthcare professional using the platform.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Patient": {
+      "title": "Patient",
+      "description": "A patient record with demographics.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "dateOfBirth": { "type": "string", "description": "Patient's date of birth (YYYY-MM-DD)" },
+        "gender": { "type": "string", "description": "Patient's gender", "enum": ["Male", "Female"] },
+        "contactInfo": { "type": "string", "description": "Patient's email or phone number" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "createdBy"]
+    },
+    "Note": {
+      "title": "Clinical Note",
+      "description": "A clinical note for a patient.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "patientId": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["General  SOAP  Note", "Admission Note", "Discharge Summary", "Mental Status Exam", "Other"] },
+        "content": { "type": "string" },
+        "transcript": { "type": "string" },
+        "analysis": { "type": "string" },
+        "status": { "type": "string", "enum": ["draft", "finalized"] },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["patientId", "title", "content", "createdBy"]
+    },
+    "NoteTemplate": {
+      "title": "Note Template",
+      "description": "A predefined template for clinical notes.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["General  SOAP  Note", "Admission Note", "Discharge Summary", "Mental Status Exam", "Other"] },
+        "content": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "content", "createdBy"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/patients/{patientId}": {
+      "schema": "Patient",
+      "description": "Patient records."
+    },
+    "/notes/{noteId}": {
+      "schema": "Note",
+      "description": "Clinical notes."
+    },
+    "/templates/{templateId}": {
+      "schema": "NoteTemplate",
+      "description": "Clinical note templates."
+    }
+  }
+}
