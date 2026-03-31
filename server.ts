@@ -3,6 +3,8 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
+import { SitemapStream, streamToPromise } from "sitemap";
+import { Readable } from "stream";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -113,6 +115,29 @@ async function startServer() {
         message: "Failed to send email. Falling back to mailto: link.",
         fallback: true
       });
+    }
+  });
+
+  // Sitemap route
+  app.get("/sitemap.xml", async (req, res) => {
+    try {
+      const smStream = new SitemapStream({
+        hostname: process.env.APP_URL || `http://${req.headers.host}`,
+      });
+
+      // List of your routes
+      const links = [
+        { url: "/", changefreq: "daily", priority: 1.0 },
+        // Add more routes here as your app grows
+      ];
+
+      const sitemapOutput = await streamToPromise(Readable.from(links).pipe(smStream));
+      
+      res.header("Content-Type", "application/xml");
+      res.send(sitemapOutput);
+    } catch (e) {
+      console.error(e);
+      res.status(500).end();
     }
   });
 
